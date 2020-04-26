@@ -1,0 +1,37 @@
+body {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #3a474e;
+    margin: 0;
+}
+
+h1 {
+    padding-left: 71px;
+    padding-top: 20px;
+}
+
+h1 span {
+    color: #000;
+    margin: 5px 0;
+    padding: 3px 20px 3px;
+    background-color: #fff;
+    font-size: 17px;
+    line-height: 17px;
+}
+
+form {
+    width: 600px;
+    padding: 20px;
+    padding-top: 25px;
+}
+
+.header {
+    padding: 10px;
+}
+
+.bannerText {
+    min-height: 100px;
+    background-color: #4af;
+    display: flex;
+}
