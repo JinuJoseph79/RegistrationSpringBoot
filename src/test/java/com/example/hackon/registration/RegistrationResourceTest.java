@@ -50,7 +50,7 @@ import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 import com.example.hackon.ApplicationBootstrap;
 import com.example.hackon.JerseyConfig;
-import com.example.hackon.model.RegistrationFormDetails;
+import com.example.hackon.model.RegisteredUser;
 import com.example.hackon.service.RegistrationService;
 
 
@@ -82,15 +82,15 @@ public class RegistrationResourceTest extends JerseyTest {
     @Test
     public void TestupdateUserDetails() {
     	RegistrationService service = new RegistrationService();
-    	Map <String, RegistrationFormDetails > userHM = new HashMap<String, RegistrationFormDetails>();
-    	RegistrationFormDetails registrationFormDetails = new RegistrationFormDetails();
-		registrationFormDetails.setFirstName("name");
-		registrationFormDetails.setEmail("someone@gmail.com");
+    	Map <String, RegisteredUser > userHM = new HashMap<String, RegisteredUser>();
+    	RegisteredUser regUser = new RegisteredUser();
+		regUser.setFirst_name("name");
+		regUser.setEmail("someone@gmail.com");
 	
     	
-    	service.updateUserDetails(registrationFormDetails);	
-    	RegistrationFormDetails userdetails = service.getUserDetails("someone@gmail.com");
-    	assertEquals("Check the returned values from hashmap", "name", userdetails.getFirstName());
+    	service.updateUserDetails(regUser);	
+    	RegisteredUser userdetails = service.getUserDetails("someone@gmail.com");
+    	assertEquals("Check the returned values from hashmap", "name", userdetails.getFirst_name());
     	
     	
     }
