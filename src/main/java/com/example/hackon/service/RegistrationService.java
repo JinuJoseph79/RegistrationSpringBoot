@@ -8,11 +8,16 @@ import org.springframework.stereotype.Component;
 
 import com.example.hackon.model.RegisteredUser;
 
+
 @Service
 @Component
 public class RegistrationService {
     private Map <String, RegisteredUser > userHM = new HashMap<String, RegisteredUser>();
-		
+	
+
+	
+       
+    
 	public void updateUserDetails(RegisteredUser registrationFormDetails) {
 		if(!registrationFormDetails.getEmail().isEmpty()) 
 			userHM.put(registrationFormDetails.getEmail(), registrationFormDetails);

@@ -19,6 +19,11 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.example.hackon.model.RegisteredUser;
 import com.example.hackon.model.UsersRepository;
@@ -43,12 +48,17 @@ public class RegistrationResource {
 	private RegistrationService registrationService;
 
 	@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
 	UsersRepository userRepo;
 
+	
+	//Get the list of registered user
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@Path("/Employees")
-	public List<RegisteredUser> getEmployee() {
+	@Path("/Administrator")
+	public List<RegisteredUser> getRegisteredUsers() {
 
 		List<RegisteredUser> empList = (List<RegisteredUser>) userRepo.findAll();
 		return empList;
@@ -56,33 +66,39 @@ public class RegistrationResource {
 
 	@Autowired
 	private VelocityEngine velocityEngine;
-
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Path("/register")
 	public Response save(MultivaluedMap<String, String> formParams, @Context HttpServletResponse servletRes)
 			throws IOException, URISyntaxException {
-
+		//Saving the form data to model
 		RegisteredUser regUser = new RegisteredUser();
-
+		
 		regUser.setFirst_name(formParams.getFirst("firstName"));
 		regUser.setLastname(formParams.getFirst("lastName"));
 		regUser.setEmail(formParams.getFirst("email"));
-		regUser.setPassword(formParams.getFirst("password"));
-		regUser.setConfirmpassword(formParams.getFirst("confirmPassword"));
 		regUser.setAddress(formParams.getFirst("address"));
 		regUser.setPincode(Integer.parseInt(formParams.getFirst("pincode")));
 		regUser.setCity(formParams.getFirst("city"));
 		regUser.setCountry(formParams.getFirst("country"));
 		regUser.setPhonenumber(Integer.parseInt(formParams.getFirst("phoneNumber")));
+		
+		//BCrypt Password encoding for password before saving to DB
+		regUser.setPassword(bCryptPasswordEncoder.encode(formParams.getFirst("password")));
+	       
+		
 		// Save the registered user details to registered_user table
 		userRepo.save(regUser);
+		
+		
 		// Save the registered user details to hashmap - To be removed
 		registrationService.updateUserDetails(regUser);
 		return Response.ok(getHtmlResponse(regUser)).build();
 
 	}
 
+	
 	private String getHtmlResponse(RegisteredUser regUser) {
 
 		Template template = velocityEngine.getTemplate("templates/registerSuccessful.vm");
@@ -101,6 +117,11 @@ public class RegistrationResource {
 		template.merge(context, writer);
 		return writer.toString();
 
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	void handleBadRequests(HttpServletResponse response) throws IOException {
+	    response.sendError(HttpStatus.BAD_REQUEST.value(), "Please try again and with a non empty string as 'name'");
 	}
 
 }
