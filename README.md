@@ -1,6 +1,7 @@
 # Project
 HackOn registration is web application for registration for the Java Hackathon.
-User entered data is validated and error message displayed. Entered data is stored into Microsoft SQL server and success message is shown with the entered details.
+Users can enter their details and register for the contest.
+Users data is validated and error message displayed. Entered data is stored into Microsoft SQL server and success message is shown with the entered details.
 
 ## Getting Started
 This repository contains the code for the HackOn registration application. The code can be cloned to local directory.
@@ -17,11 +18,11 @@ Jasmine-JQuery.js(https://www.npmjs.com/package/jasmine-jquery)
 JQuery.js (https://jquery.com/download/)
 
 Open the project in IDE (Eclipse, Intellij) and resolve the dependencies issues if any. 
-Execute the application as Java application by selecting ApplicationBootstrap for main(String[] args) method. Then goto browser and open http://localhost:8080/registration.html. PAT registration form will be displayed
+Execute the application as Java application by selecting ApplicationBootstrap for main(String[] args) method. Then goto browser and open http://localhost:8080/registration.html. Hackon registration form will be displayed
 
  
 ## Features
-PAT registration form can be used for registering for Java Hackthon. First Name, Last Name, Email Addess, Password, Address, Pincode, City and Country fields are mandatory. Phone number field is optional. 
+HackOn registration form can be used for registering for Java Hackthon. First Name, Last Name, Email Addess, Password, Address, Pincode, City and Country fields are mandatory. Phone number field is optional. 
 Validations
 * 	First Name & Last Name: Field can contain only alphabets, number and space.
 * 	Emails Address: Field should be valid email ID like xxx.xx@xxx.com, xxxxx@xxx.com, xxxx.xxx@xx.co.in

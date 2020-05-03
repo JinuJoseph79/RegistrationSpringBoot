@@ -40,7 +40,8 @@ public class ApplicationBootstrap {
         return registration;
     }
 
-    @Bean
+    
+	@Bean
     public WebMvcConfigurerAdapter forwardToIndex() {
         return new WebMvcConfigurerAdapter() {
             @Override
